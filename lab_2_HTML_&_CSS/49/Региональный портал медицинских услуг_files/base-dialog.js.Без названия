@@ -1,0 +1,159 @@
+/**
+ * Базовый компонент модальных диалогов.
+ *
+ */
+(function ($) {
+    'use strict';
+
+    /**
+     * @type {Object.<string, {
+     *     imgSrc: string|null,
+     *     imgWidth?: string,
+     *     imgHeight?: string,
+     *     hasTitle?: boolean,
+     *     dialogClass?: string,
+     *     contentClass?: string,
+     *     dialogOptions?: Object
+     * }>}
+     */
+    var _typeConfigs = {
+        info: {
+            imgSrc: '/design/common_new/img/ic_colorful_circle_attention48.svg',
+            imgWidth: '40px',
+            imgHeight: '40px',
+        },
+        success: {
+            imgSrc: '/design/common_new/img/ic_colorful_accept48.svg',
+            imgWidth: '40px',
+            imgHeight: '40px',
+            hasTitle: false
+        },
+        error: {
+            imgSrc: '/design/common_new/img/popupalert.png',
+            imgWidth: '40px',
+            imgHeight: '40px',
+            hasTitle: false
+        },
+        warning: {
+            imgSrc: '/design/common_new/img/videochat/yellow_warning.svg',
+            imgWidth: '40px',
+            imgHeight: '40px',
+            hasTitle: true
+        }
+    };
+
+    var _defaultOptions = {
+        classes: { 'ui-dialog': 'base-dialog' },
+        width: 730,
+        minWidth: 320,
+        minHeight: 103,
+        modal: true,
+        draggable: false,
+        resizable: false,
+        close: function () {
+            $(this).dialog('destroy').remove();
+        }
+    };
+
+    /**
+     * Собрать опции jQuery UI dialog с расширениями конкретного типа.
+     *
+     * @param {Object} config
+     * @param {Object} [customOptions]
+     * @returns {Object}
+     */
+    function buildDialogOptions(config, customOptions) {
+        var dialogOptions = $.extend(true, {}, _defaultOptions, config.dialogOptions || {}, customOptions || {});
+        if (config.dialogClass) {
+            dialogOptions.classes = dialogOptions.classes || {};
+            dialogOptions.classes['ui-dialog'] = [
+                dialogOptions.classes['ui-dialog'],
+                config.dialogClass
+            ].filter(Boolean).join(' ');
+        }
+
+        return dialogOptions;
+    }
+
+    /**
+     * Создать и показать модальный диалог.
+     *
+     * @param {string} type - Тип: 'info' | 'success' | 'error' | 'warning'
+     * @param {string} htmlMessage - HTML-содержимое
+     * @param {string|null} [title] - Заголовок
+     * @param {Object} [customOptions] - Переопределение опций jQuery UI dialog
+     */
+    function createBaseDialog(type, htmlMessage, title, customOptions) {
+        var config = _typeConfigs[type];
+        if (!config) {
+            throw new Error('BaseDialog: неизвестный тип «' + type + '»');
+        }
+
+        var imgHtml = '';
+        if (config.imgSrc) {
+            imgHtml = '<img class="base-dialog__icon" loading="lazy" decoding="async"'
+                + (config.imgWidth  ? ' width="'  + config.imgWidth  + '"' : '')
+                + (config.imgHeight ? ' height="' + config.imgHeight + '"' : '')
+                + ' src="'  + config.imgSrc + '"'
+                + ' alt="base-dialog--' + type + '">';
+        }
+
+        var titleHtml = (config.hasTitle && title)
+            ? '<p class="base-dialog__title">' + title + '</p>'
+            : '';
+
+        var contentClass = 'base-dialog__content base-dialog__content--' + type
+            + (config.contentClass ? ' ' + config.contentClass : '');
+
+        var $content = $(
+            '<div class="' + contentClass + '">'
+            + '<div class="base-dialog__main">'
+            + imgHtml
+            + '<div class="base-dialog__body">'
+            + titleHtml
+            + '<div class="base-dialog__message">' + htmlMessage + '</div>'
+            + '</div>'
+            + '</div>'
+            + '<div class="base-dialog__actions">'
+            + '<button type="button" class="base-dialog__close-button">Закрыть</button>'
+            + '</div>'
+            + '</div>'
+        );
+
+        $content.dialog(buildDialogOptions(config, customOptions));
+
+        $content.on('click', '.base-dialog__close-button', function () {
+            $content.dialog('close');
+        });
+    }
+
+    /**
+     * Зарегистрировать новый тип диалога или переопределить существующий.
+     *
+     * @param {string} type
+     * @param {{
+     *     imgSrc?: string|null,
+     *     imgWidth?: string,
+     *     imgHeight?: string,
+     *     hasTitle?: boolean,
+     *     dialogClass?: string,
+     *     contentClass?: string,
+     *     dialogOptions?: Object
+     * }} config
+     */
+    function registerType(type, config) {
+        _typeConfigs[type] = $.extend(true, {}, _typeConfigs[type] || {}, config);
+    }
+
+    window.BaseDialog = {
+        create: createBaseDialog,
+        registerType: registerType
+    };
+
+    // хелперы
+    $.infoDialog = function (message) { createBaseDialog('info', message); };
+    $.successDialog = function (message) { createBaseDialog('success', message); };
+    $.errorDialog = function (message) { createBaseDialog('error', message); };
+    $.warningDialog = function (message, title) { createBaseDialog('warning', message, title); };
+
+}(jQuery));

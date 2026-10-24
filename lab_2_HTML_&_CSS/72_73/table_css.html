@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Таблицы с CSS</title>
+    <!-- Подключение внешнего файла стилей -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+</head>
+<body>
+
+    <h1>а) Примеры из лекции (рис. 3.13 и 3.14)</h1>
+    
+    <!-- Рис. 3.13 -->
+    <h2>Рис. 3.13. Эффект слияния границ соседних ячеек</h2>
+    <table class="tbl-3-13">
+        <tr>
+            <th class="lc">Год\Браузер</th>
+            <th>IE</th><th>Firefox</th><th>Safari</th><th>Opera</th>
+        </tr>
+        <tr><td class="lc">2010</td><td>61.43%</td><td>24.40%</td><td>4.55%</td><td>2.37%</td></tr>
+        <tr><td class="lc">2009</td><td>69.13%</td><td>22.67%</td><td>3.58%</td><td>2.18%</td></tr>
+        <tr><td class="lc">2008</td><td>77.83%</td><td>16.86%</td><td>2.65%</td><td>1.84%</td></tr>
+        <tr><td class="lc">2007</td><td>79.38%</td><td>14.35%</td><td>4.70%</td><td>0.50%</td></tr>
+    </table>
+
+    <!-- Рис. 3.14 -->
+    <h2>Рис. 3.14. Оформление таблицы с двумя разделительными линиями</h2>
+    <table class="tbl-3-14">
+        <tr>
+            <th class="lc">Год\Браузер</th>
+            <th>IE</th><th>Firefox</th><th>Safari</th><th>Opera</th>
+        </tr>
+        <tr><td class="lc">2010</td><td>61.43%</td><td>24.40%</td><td>4.55%</td><td>2.37%</td></tr>
+        <tr><td class="lc">2009</td><td>69.13%</td><td>22.67%</td><td>3.58%</td><td>2.18%</td></tr>
+        <tr><td class="lc">2008</td><td>77.83%</td><td>16.86%</td><td>2.65%</td><td>1.84%</td></tr>
+        <tr><td class="lc">2007</td><td>79.38%</td><td>14.35%</td><td>4.70%</td><td>0.50%</td></tr>
+    </table>
+
+    <!-- Остальные таблицы без изменений -->
+    <h1>б) Форматирование как на рис. 3.15</h1>
+    <table class="tbl-b">
+        <tr>
+            <th class="lc">Год\Браузер</th>
+            <th>IE</th><th>Firefox</th><th>Safari</th><th>Opera</th>
+        </tr>
+        <tr><td class="lc">2010</td><td>61.43%</td><td>24.40%</td><td>4.55%</td><td>2.37%</td></tr>
+        <tr><td class="lc">2009</td><td>69.13%</td><td>22.67%</td><td>3.58%</td><td>2.18%</td></tr>
+        <tr><td class="lc">2008</td><td>77.83%</td><td>16.86%</td><td>2.65%</td><td>1.84%</td></tr>
+        <tr><td class="lc">2007</td><td>79.38%</td><td>14.35%</td><td>4.70%</td><td>0.50%</td></tr>
+    </table>
+
+    <h1>в) «Зебра» (рис. 3.16)</h1>
+    <table class="tbl-zebra">
+        <tr>
+            <th class="lc">Год\Браузер</th>
+            <th>IE</th><th>Firefox</th><th>Safari</th><th>Opera</th>
+        </tr>
+        <tr class="odd"><td class="lc">2010</td><td>61.43%</td><td>24.40%</td><td>4.55%</td><td>2.37%</td></tr>
+        <tr class="even"><td class="lc">2009</td><td>69.13%</td><td>22.67%</td><td>3.58%</td><td>2.18%</td></tr>
+        <tr class="odd"><td class="lc">2008</td><td>77.83%</td><td>16.86%</td><td>2.65%</td><td>1.84%</td></tr>
+        <tr class="even"><td class="lc">2007</td><td>79.38%</td><td>14.35%</td><td>4.70%</td><td>0.50%</td></tr>
+    </table>
+
+    <h1>г*) Чередование колонок</h1>
+    <table class="tbl-cols">
+        <tr>
+            <th class="lc col-odd">Год\Браузер</th>
+            <th class="col-even">IE</th><th class="col-odd">Firefox</th><th class="col-even">Safari</th><th class="col-odd">Opera</th>
+        </tr>
+        <tr><td class="lc col-odd">2010</td><td class="col-even">61.43%</td><td class="col-odd">24.40%</td><td class="col-even">4.55%</td><td class="col-odd">2.37%</td></tr>
+        <tr><td class="lc col-odd">2009</td><td class="col-even">69.13%</td><td class="col-odd">22.67%</td><td class="col-even">3.58%</td><td class="col-odd">2.18%</td></tr>
+        <tr><td class="lc col-odd">2008</td><td class="col-even">77.83%</td><td class="col-odd">16.86%</td><td class="col-even">2.65%</td><td class="col-odd">1.84%</td></tr>
+        <tr><td class="lc col-odd">2007</td><td class="col-even">79.38%</td><td class="col-odd">14.35%</td><td class="col-even">4.70%</td><td class="col-odd">0.50%</td></tr>
+    </table>
+
+    <h1>д*) Фоновое изображение для таблицы</h1>
+    <table class="tbl-bg" style="background-image: url('images/bg.jpg');">
+        <tr>
+            <th class="lc">Год\Браузер</th>
+            <th>IE</th><th>Firefox</th><th>Safari</th><th>Opera</th>
+        </tr>
+        <tr><td class="lc">2010</td><td>61.43%</td><td>24.40%</td><td>4.55%</td><td>2.37%</td></tr>
+        <tr><td class="lc">2009</td><td>69.13%</td><td>22.67%</td><td>3.58%</td><td>2.18%</td></tr>
+        <tr><td class="lc">2008</td><td>77.83%</td><td>16.86%</td><td>2.65%</td><td>1.84%</td></tr>
+        <tr><td class="lc">2007</td><td>79.38%</td><td>14.35%</td><td>4.70%</td><td>0.50%</td></tr>
+    </table>
+
+</body>
+</html>
+   

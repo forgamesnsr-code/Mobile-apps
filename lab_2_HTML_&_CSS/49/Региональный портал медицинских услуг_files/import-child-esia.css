@@ -1,0 +1,97 @@
+.import-esia-child-proccess-dialog {
+    border-radius: 8px;
+    box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+.import-esia-child-proccess-dialog .ui-dialog-titlebar.ui-widget-header {
+    background: white;
+    border: none; 
+}
+
+.import-esia-child-proccess-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+    background: none;
+    border: none;
+}
+
+.import-esia-child-proccess-dialog .import-esia-child-proccess-dialog__content.ui-dialog-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 0px 0px 25px 0px;
+    height: 32px;
+    padding-left: 30px;
+    padding-right: 40px;
+}
+
+.import-esia-child-proccess-dialog .import-esia-child-proccess-dialog__content p {
+    color: rgba(102, 102, 102, 1);
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0%;
+}
+
+.import-esia-child-proccess-dialog__content p.import-esia-child-proccess-dialog__title {
+    color: rgba(33, 33, 33, 1);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.import-esia-child-proccess-dialog__content p.import-esia-child-proccess-dialog__primary {
+    color: rgba(33, 33, 33, 1);
+}
+
+.import-esia-child-proccess-dialog__content p.import-esia-child-proccess-dialog__note {
+    color: rgba(158, 158, 158, 1);
+    margin-top: 8px;
+}
+
+.import-esia-child-proccess-dialog .ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix {
+    display: flex;
+    justify-content: center;
+    margin: 0px 0px 25px 0px;
+    padding: 0px;
+    border-top-width: 0px;
+}
+
+.import-esia-child-proccess-dialog .ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix .ui-dialog-buttonset {
+    display: flex;
+    gap: 8px;
+}
+
+.import-esia-child-proccess-dialog .import-esia-child-proccess-dialog__button {
+    margin: 0px;
+    padding: 10px 20px;
+}
+
+.import-esia-child-proccess-dialog .import-esia-child-proccess-dialog__button.accept {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1) !important;
+    border-radius: 4px;
+    background: rgba(38, 166, 154, 1);
+}
+
+.import-esia-child-proccess-dialog .import-esia-child-proccess-dialog__button.accept:hover {
+    background-color: #4db6ac;
+}
+
+.import-esia-child-proccess-dialog .import-esia-child-proccess-dialog__button.cancel {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(84, 110, 122, 1) !important;
+    border-radius: 4px;
+    background: rgba(236, 239, 241, 1);
+}
+
+.import-esia-child-proccess-dialog .import-esia-child-proccess-dialog__button.cancel:hover {
+    background-color: rgba(216, 219, 221, 1);
+}

@@ -1,0 +1,579 @@
+.search-block-container.search-block-container__ordercert {
+    margin-bottom: 0px;
+}
+
+.cert-type-item {
+    margin-bottom: 16px;
+}
+
+.cert-type-item .cert-type-item-title-block {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.cert-type-item .cert-type-item-title {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 120%;
+    color: #333333;
+}
+
+.cert-type-item .cert-type-item-subtitle {
+    margin: 0;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #616161;
+}
+
+.cert-type-item .cert-type-item-choise-btn {
+    height: 16px;
+}
+
+.cert-type-item .cert-type-item-title-wrapper {
+    position: relative;
+}
+
+.cert-type-item .cert-type-item-dotted-line {
+    flex-grow: 1;
+    height: 1px;
+    border-top: 2px dotted #BDBDBD;
+    margin: 8px;
+    margin-top: 20px;
+}
+
+.cert-type-item .cert-type-item-collapse-btn {
+    position: relative;
+    cursor: pointer;
+    padding-left: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #666666;
+}
+
+.cert-type-item .cert-type-item-collapse-btn.cert-type-item-collapse-btn--collapsed::before {
+    transform: rotate(90deg);
+}
+
+.cert-type-item .cert-type-item-collapse-btn:before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: -1px;
+    top: 1px;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    background-image: url("../img/arrow-right-grey.svg");
+}
+
+.cert-type-item .cert-type-item-collapse-btn:hover {
+    color: #666666;
+}
+
+.cert-type-item .cert-type-item-description {
+    margin-bottom: 16px;
+}
+
+.cert-type-item .cert-type-item-description-wrapper {
+    display: none;
+    width: 50%;
+    margin-top: 16px;
+    margin-left: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #333333;
+}
+
+.cert-type-item:first-child .cert-type-item-description-wrapper {
+    display: block;
+}
+
+.cert-type-item .doc-form-names-title {
+    margin: 0;
+    margin-bottom: 8px;
+    padding: 0;
+    background: none;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 700;
+    color: #333333;
+}
+
+/* serviceLocationList */
+summary {
+    display: block;
+    cursor: pointer;
+    list-style: none;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::before {
+    content: url('/design/common_new/img/chevron_right_24.png');
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+details[open] > summary::before {
+    content: url('/design/common_new/img/chevron_down_24.png');
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.service-location-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.service-location-list-subtitle {
+    text-transform: uppercase;
+    color: #616161;
+    line-height: 16px;
+    font-size: 12px;
+}
+
+.service-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 0px;
+}
+
+.service-item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+}
+
+.service-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.service-location-header {
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 0%;
+    font-weight: 400;
+    padding-right: 8px;
+}
+
+.service-location-name {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.service-location-name__tag.attach {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid;
+    border-color: rgba(33, 150, 243, 1);
+    border-radius: 4px;
+    gap: 8px;
+    padding: 2px 4px 2px 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: rgba(33, 150, 243, 1);
+}
+
+.service-item summary .service-location-header .service-location-address {
+    color: rgba(153, 153, 153, 1);
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 5px;
+}
+
+.service-location-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.label-docform {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0%;
+    border: 1px solid #2196F3;
+    border-radius: 4px;
+    background: #fff;
+    color: #2196F3;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 4px 10px;
+    user-select: none;
+}
+
+.department-list {
+    list-style: none;
+    margin-top: 12px;
+}
+
+.department {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 28px 16px 32px;
+}
+
+.department-name {
+    color: #01579B;
+    font-size: 13px;
+}
+
+.department-location {
+    font-size: 13px;
+    color: #666;
+    margin-left: 10px;
+}
+
+.department-header {
+    display: flex;
+    align-items: center;
+}
+
+.department-detail-row {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.department-detail-row dt {
+    align-self: flex-start;
+    margin-right: 16px;
+}
+
+.department-detail-row dd ul {
+    padding-left: 12px;
+}
+
+.department-details {
+    margin-top: 16px;
+}
+
+.department-details dt {
+    font-size: 12px;
+    line-height: 14px;
+    width: 193px;
+    color: #616161;
+}
+
+.department-details dd {
+    font-size: 12px;
+    line-height: 14px;
+    color: #212121;
+}
+
+.department-item:hover {
+    background-color: #FAFAFA;
+    cursor: pointer;
+}
+
+/* order-cert-confirm-dialog */
+#order-cert-confirm-dialog {
+    display: none;
+}
+
+#order-cert-confirm-dialog .secondary-desc{
+    color: #9E9E9E;
+    margin-top: 12px;
+}
+
+.dialog-row {
+    display: flex;
+    margin-bottom: 14px;
+}
+
+#order-cert-confirm-dialog .dialog-label {
+    width: 127px;
+    color: #999999;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+#order-cert-confirm-dialog .dialog-value {
+    font-size: 14px;
+    color: #333333;
+    line-height: 100%;
+    margin-left: 12px;
+    flex: 1;
+}
+
+#order-cert-confirm-dialog .doc-type-btn {
+    background: none;
+    border: none;
+    color: #0288D1;
+    font-size: 13px;
+    margin-right: 4px;
+    padding: 4px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#order-cert-confirm-dialog .doc-type-btn.selected {
+    background: #0288D1;
+    color: #fff;
+}
+
+#order-cert-confirm-dialog .doc-type-btn:not(.selected):hover {
+    background: #e3f2fd;
+}
+
+#order-cert-confirm-dialog .doc-type-btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#order-cert-confirm-dialog .modal-consent {
+    font-size: 12px;
+    line-height: 14px;
+    color: #757575;
+    margin-top: 12px;
+}
+
+#order-cert-confirm-dialog .modal-consent a {
+    color: #1976d2;
+    text-decoration: underline;
+}
+
+#order-cert-confirm-dialog .datetange {
+    width: 380px;
+}
+
+#order-cert-confirm-dialog .datetange input {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-5-5h-4v-4h4v4z"/></svg>') !important;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px 20px;
+    padding-right: 40px;
+}
+
+/* Подсветка обязательного незаполненного поля */
+#order-cert-confirm-dialog .datetange input:required:invalid {
+    background-color: #FFFFFF;
+    border: 1px solid #F44336;
+    box-shadow: 0 0 0 1px #F44336;
+}
+
+#order-cert-confirm-dialog .datetange input:required:invalid:focus {
+    border-color: #F44336;
+    background-color: #FFFFFF;
+    outline: none;
+    box-shadow: 0 0 0 2px #F44336;
+}
+
+/* Сообщение об ошибке - скрыто по умолчанию */
+#order-cert-confirm-dialog .date-error-message {
+    display: none;
+    color: #D32F2F;
+    font-size: 13px;
+    line-height: 18px;
+    margin-top: 4px;
+}
+
+/* Показываем сообщение об ошибке когда поле невалидно */
+#order-cert-confirm-dialog .datetange input:required:invalid ~ .date-error-message {
+    display: block;
+}
+
+.dialog-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 36px;
+    margin-bottom: 20px;
+}
+
+.dialog-actions-right {
+    justify-content: flex-end;
+}
+
+.dialog-actions .ui-button-primary {
+    border: none;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dialog-actions .ui-button-secondary {
+    background: #ECEFF1;
+    color: #546E7A;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#order-cert-confirm-dialog .comment-textarea {
+    width: 100%;
+    border: 1px solid #CCCCCC;
+    padding: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+/* placeSearchForm */
+
+.content .isAttachLpuBlock {
+    clear: both;
+    height: 16px;
+    padding: 10px 0 0;
+}
+
+.content .isAttachLpuLabel {
+    width: auto;
+    padding: 0;
+}
+
+#order-cert-confirm-success-dialog {
+    display:none;
+    padding: 42px;
+}
+
+.order-cert-confirm-success-dialog-text-bold {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.order-cert-confirm-success-dialog-text {
+    font-weight: 400;
+    line-height: 18px;
+}
+.order-cert-confirm-success-dialog .dialog-actions,
+.order-cert-confirm-error-dialog .dialog-actions {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.cert-type-empty-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+}
+
+.cert-type-empty-block {
+    position: relative;
+    margin-top: 100px;
+}
+
+.cert-type-empty-block::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 25%;
+    width: 100px;
+    height: 100px;
+    background-image: url("../img/empty_search.svg");
+    background-repeat: no-repeat;
+}
+
+.placeordercert-wrapper-empty {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    width: 1180px;
+}
+
+.placeordercert-block {
+    text-align: center;
+}
+
+.placeordercert-icon {
+    margin: 0 auto 24px;
+    width: 100px;
+    height: 80px;
+    background-image: url('../img/empty_search.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.placeordercert-block-primary-desc {
+    color: #212121;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+}
+
+.placeordercert-block-secondary-desc {
+    color: #9E9E9E;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.status-ok-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    background-image: url('../img/status_ok.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: block;
+}
+
+.ordercert-proccess-dialog {
+    border-radius: 8px;
+    box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+.ordercert-proccess-dialog .ui-dialog-titlebar.ui-widget-header {
+    background: white;
+    border: none; 
+}
+
+.ordercert-proccess-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+    background: none;
+    border: none;
+}
+
+.ordercert-proccess-dialog .ordercert-proccess-dialog__content.ui-dialog-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 0px 0px 31px 0px;
+    height: 32px;
+    padding-left: 30px;
+    padding-right: 40px;
+}
+
+.ordercert-proccess-dialog .ordercert-proccess-dialog__content p {
+    color: rgba(102, 102, 102, 1);
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0%;
+}
+
+.ordercert-proccess-dialog__content p.ordercert-proccess-dialog__title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    width: 100%;
+    margin-bottom: 12px;
+}

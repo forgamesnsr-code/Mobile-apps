@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>График y = x²</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body class="graph-page">
+
+    <h1>График функции y = x²</h1>
+
+    <div class="graph-container">
+        <!-- Оси координат -->
+        <div class="axis-y"></div>
+        <div class="axis-x"></div>
+        
+        <!-- Стрелочка и подпись оси X -->
+        <div class="arrow-x"></div>
+        <div class="label-x">X</div>
+
+        <!-- Точки графика -->
+        <!-- Центр (0,0) - left: 150px, top: 300px -->
+        <!-- Шаг по X: 20px, по Y: 15px -->
+        
+        <!-- Центр (0,0) -->
+        <div class="dot" style="left: 150px; top: 300px;"></div>
+
+        <!-- Правая ветвь (x > 0) -->
+        <div class="dot" style="left: 170px; top: 285px;"></div> <!-- x=1, y=1 -->
+        <div class="dot" style="left: 190px; top: 240px;"></div> <!-- x=2, y=4 -->
+        <div class="dot" style="left: 210px; top: 165px;"></div> <!-- x=3, y=9 -->
+        <div class="dot" style="left: 230px; top: 60px;"></div>  <!-- x=4, y=16 -->
+
+        <!-- Левая ветвь (x < 0) -->
+        <div class="dot" style="left: 130px; top: 285px;"></div> <!-- x=-1, y=1 -->
+        <div class="dot" style="left: 110px; top: 240px;"></div> <!-- x=-2, y=4 -->
+        <div class="dot" style="left: 90px; top: 165px;"></div>  <!-- x=-3, y=9 -->
+        <div class="dot" style="left: 70px; top: 60px;"></div>   <!-- x=-4, y=16 -->
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)https://portal12.is-mis.ru/ -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="csrf-token" content="ctfxsXTuAaQmVHGXSMsybFZkDLvOd6gB6k0qAOIyJ38=">
+<!--	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
+<title>Региональный портал медицинских услуг</title>
+<link rel="icon" type="image/png" href="https://portal12.is-mis.ru/favicon.png">
+<link href="./Региональный портал медицинских услуг_files/jquery-ui.min.css" rel="stylesheet" type="text/css">
+<link href="./Региональный портал медицинских услуг_files/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
+<link href="./Региональный портал медицинских услуг_files/select2.min.css" rel="stylesheet" type="text/css">
+
+<link href="./Региональный портал медицинских услуг_files/main.css" rel="stylesheet" type="text/css"><link href="./Региональный портал медицинских услуг_files/base-dialog.css" rel="stylesheet" type="text/css"><link href="./Региональный портал медицинских услуг_files/order-certificate.css" rel="stylesheet" type="text/css"><link href="./Региональный портал медицинских услуг_files/import-child-esia.css" rel="stylesheet" type="text/css"><link href="./Региональный портал медицинских услуг_files/videochat.css" rel="stylesheet" type="text/css">
+
+<link href="./Региональный портал медицинских услуг_files/fonts.css" rel="stylesheet" type="text/css">
+<link href="./Региональный портал медицинских услуг_files/slick.css" rel="stylesheet" type="text/css">
+<link href="./Региональный портал медицинских услуг_files/slick-theme.css" rel="stylesheet" type="text/css">
+<link href="./Региональный портал медицинских услуг_files/slick-add.css" rel="stylesheet" type="text/css">
+
+	<link rel="shortcut icon" href="https://portal12.is-mis.ru/design/common_new/img/favicons/fav.png" type="image/x-icon">
+
+
+<script type="text/javascript" async="" src="./Региональный портал медицинских услуг_files/tag.js.Без названия"></script><script src="./Региональный портал медицинских услуг_files/ru.js.Без названия"></script>
+<script src="./Региональный портал медицинских услуг_files/jquery.min.js.Без названия"></script>
+<script src="./Региональный портал медицинских услуг_files/jquery-ui.min.js.Без названия"></script>
+<script src="./Региональный портал медицинских услуг_files/base-dialog.js.Без названия"></script>
+<script src="./Региональный портал медицинских услуг_files/jquery.inputmask.min.js.Без названия"></script>
+<script src="./Региональный портал медицинских услуг_files/jquery-dateformat.min.js.Без названия"></script>
+<script src="./Региональный портал медицинских услуг_files/moment.js.Без названия"></script>
+<script>REGION = 'mariel_new';</script>
+<script src="./Региональный портал медицинских услуг_files/main.js.Без названия"></script><script defer="">
+  window["sharedData"] = null;
+  window["sharedDataNamespace"] = "sharedData";
+  window["shared"] = function (e, n = null) {
+    return [window.sharedDataNamespace].concat("string" == typeof e ? e.split(".") : []).reduce(function (e, t) {
+      return e === n || "object" != typeof e || void 0 === e[t] ? n : e[t]
+    }, window)
+  };
+</script>
+</head>
+
+<body class="noLogin">
+
+<div class="side-mobile-menu hidden">
+	<div class="mobile-menu">
+					<div class="person">
+				<div class="ava-default-big"></div>
+				<p><a href="https://portal12.is-mis.ru/#" class="enter "><span></span>Вход</a><a href="https://portal12.is-mis.ru/#" class="register"><span></span>Регистрация</a><!--<a href="#" class="demo" onclick="return false;"><span></span></a>--></p>
+			</div>
+				<ul class="usluga-list">
+							<li onclick="openEnterBoxModal()">
+					<div style="background: url(/design/common_new/img/kvrachu-mobile.png) no-repeat center;"></div>Запись на приём к врачу				</li>
+							<li onclick="location.href='/service/record/vaccination'">
+					<div style="background: url(/design/common_new/img/record_vaccination-mobile.png) no-repeat center;"></div>Запись на вакцинацию				</li>
+							<li onclick="location.href='/service/schedule'">
+					<div style="background: url(/design/common_new/img/rasp-mobile.png) no-repeat center;"></div>Расписание работы врачей				</li>
+							<li onclick="location.href='/service/emk'">
+					<div style="background: url(/design/common_new/img/emk-mobile.png) no-repeat center;"></div>Медицинская карта				</li>
+							<li onclick="openEnterBoxModal()">
+					<div style="background: url(/design/common_new/img/diary-mobile.png) no-repeat center;"></div>Дневник здоровья				</li>
+							<li onclick="location.href='/service/hospitals'">
+					<div style="background: url(/design/common_new/img/medorg-mobile.png) no-repeat center;"></div>Медицинские организации				</li>
+							<li onclick="location.href='/service/regions'">
+					<div style="background: url(/design/common_new/img/uchastok-mobile.png) no-repeat center;"></div>Поиск участка прикрепления				</li>
+					</ul>
+		<div class="support-call"><div class="call-icon"></div><a href="tel:8(7112)24-84-44">8 (7112) 24-84-44</a> <span>c 08:00 до 20:00</span></div>
+		<ul class="usluga-list">
+            			<li onclick="location.href='/news'">
+				<div class="news-menu-icon"></div>
+				<p>Новости и объявления</p>
+			</li>
+			<li onclick="location.href='/help'">
+				<div class="help-menu-icon"></div>
+				<p>Помощь</p>
+			</li>
+			<li>
+				<div class="rep-menu-icon"></div>
+				<p>Пожаловаться</p>
+			</li>
+			<li>
+				<div class="lang-menu-icon"></div>
+				<p>Язык</p>
+			</li>
+            			<li onclick="location.href='/about/feedback'">
+				<div class="feed-menu-icon"></div>
+				<p>Обратная связь</p>
+			</li>
+            		</ul>
+	</div>
+</div>
+	<!-- Yandex.Metrika counter -->
+	<script>
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter82995022 = new Ya.Metrika2({
+						id:82995022,
+						clickmap:true,
+						trackLinks:true,
+						accurateTrackBounce:true,
+						webvisor:true,
+						trackHash:true
+					});
+				} catch(e) { }
+			});
+
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f, false);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks2");
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/82995022?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
+	
+<div class="bodyWrapper">
+	<div class="popup yesno">
+    <span class="close"></span>
+    <div class="alert"></div>
+</div>	
+
+
+
+
+
+<div class="popup redirectEsiaCovid" id="redirectEsiaCovid">
+    <span class="close"></span>
+    <p>Запись на вакцинацию против COVID-19 осуществляется через портал государственных услуг.</p>
+    <p>Перейти к записи?</p>
+    <br>
+    <div class="buttonsRedirectEsiaCovidPopup">
+        <span><a target="_blank" rel="noreferrer" href="https://www.gosuslugi.ru/landing/vaccination" class="button">Да</a></span>
+        <span><a target="_blank" rel="noreferrer" class="button closeRedirectEsiaCovidPopup">Нет</a></span>
+    </div>
+</div>
+
+    <div class="cap">
+        <div class="wrapper wrapper-body index">
+			<div class="burger"><i class="burger-menu"></i></div>
+            <div class="logo">
+                <h1><a href="https://portal12.is-mis.ru/"><img src="./Региональный портал медицинских услуг_files/logo.png" alt="Региональный портал медицинских услуг"></a></h1>
+            </div>
+            <div class="name">
+                <h1><a href="https://portal12.is-mis.ru/">Региональный портал медицинских услуг</a></h1>
+            </div>
+            <div class="region">
+                <ul class="closed">
+                    <li><a href="https://doctor30.ru/">Астраханская область</a></li><li><a href="https://33.k-vrachu.ru/">Владимирская область</a></li><li><a href="https://k-vrachu.cifromed35.ru/">Вологодская область</a></li><li><a href="https://registratura.eao.ru/">Еврейская автономная область</a></li><li><a href="https://portal38.is-mis.ru/">Иркутская область</a></li><li><a href="https://er.mzkbr.ru/">Кабардино-Балкарская Республика</a></li><li><a href="https://xn--40-6kcanlw5ddbimco.xn--p1ai/">Калужская область</a></li><li><a href="https://er43.medkirov.ru/">Кировская область</a></li><li><a href="https://www.poliklinika45.ru/">Курганская область</a></li><li><a href="https://mis.mznn.ru/">Нижегородская область</a></li><li><a href="https://omskzdrav.ru/">Омская область</a></li><li><a href="https://portal56.is-mis.ru/">Оренбургская область</a></li><li><a href="https://xn----7sbnbkvqmbbuw.xn--p1ai/">Пензенская область</a></li><li><a href="https://k-vrachu.ru/">Пермский край</a></li><li><a href="https://04.k-vrachu.ru/">Республика Алтай</a></li><li><a href="https://doctor.bashkortostan.ru/">Республика Башкортостан</a></li><li><a href="https://reg03.k-vrachu.ru/">Республика Бурятия</a></li><li><a href="https://05.k-vrachu.ru/">Республика Дагестан</a></li><li><a href="https://reg.zdrav10.ru/">Республика Карелия</a></li><li><a href="https://crimea.k-vrachu.ru/">Республика Крым</a></li><li class="selected"><a href="https://portal12.is-mis.ru/">Республика Марий Эл</a></li><li><a href="https://zapis.giszrm.ru/">Республика Мордовия</a></li><li><a href="https://er14.ru/">Республика Саха (Якутия)</a></li><li><a href="https://xn--19-6kch3bybw5a.xn--p1ai/">Республика Хакасия</a></li><li><a href="https://registratura96.ru/">Свердловская область</a></li><li><a href="https://portal18.is-mis.ru/">Удмуртская Республика</a></li><li><a href="https://yamalmed.ru/">ЯНАО</a></li>                </ul>
+            </div>
+                            <div class="person">
+                    <p><a href="https://portal12.is-mis.ru/#" class="enter "><span></span>Вход</a>
+                        <a href="https://portal12.is-mis.ru/#" class="register"><span></span>Регистрация</a>
+                                            </p>
+
+                    <div class="demoBox tooltips">
+                        <div>
+                            <p>В демо-режиме можно ознакомиться со всеми возможностями портала без регистрации. Изменения сохраняться не будут.</p>
+                            <p>&nbsp;</p>
+                            <p><a href="https://portal12.is-mis.ru/user/demo_login" class="button grey">Включить демо-режим</a></p>
+                        </div>
+                    </div>
+                                        <div class="regBox tooltips">
+                        <div>
+                            <p>Регистрация на Едином медицинском портале доступна только через портал Государственных услуг. Если Вы уже зарегистрированы, то Вам необходимо осуществить авторизацию в разделе «Вход». Для регистрации - пройдите соответствующую процедуру на портале Государственных услуг.							</p>
+                            <p>&nbsp;</p>
+                            <p><a target="_blank" rel="noreferrer" href="https://esia.gosuslugi.ru/registration/" class="button">Перейти на портал Госуслуг РФ</a></p>
+                        </div>
+                    </div>
+                                    </div>
+                    </div>
+    </div>
+
+    <link href="./Региональный портал медицинских услуг_files/slick.css" rel="stylesheet" type="text/css">
+<link href="./Региональный портал медицинских услуг_files/slick-theme.css" rel="stylesheet" type="text/css">
+<link href="./Региональный портал медицинских услуг_files/slick-add.css" rel="stylesheet" type="text/css">
+<div class="top-slideshow">
+	<div class="wrapper slick-initialized slick-slider">
+        <div aria-live="polite" class="slick-list draggable" tabindex="0"><div class="slick-track" style="opacity: 1; width: 9720px; transform: translate(-1080px, 0px);"><div class="top-slider slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true" style="width: 1080px;">
+	<div class="slider-img">
+		<img src="./Региональный портал медицинских услуг_files/slide6.png">
+	</div>
+	<div class="slider-descr">
+		<h2>Поиск участка прикрепления</h2>
+		<p>
+			Поиск участка прикрепления по адресу и список поликлиник с участками.
+		</p>
+		<a href="https://portal12.is-mis.ru/service/regions" class="slider-btn">Найти</a>
+	</div>
+</div><div class="top-slider slick-slide slick-active" data-slick-index="0" aria-hidden="false" style="width: 1080px;">
+	<div class="slider-img">
+        				    <img src="./Региональный портал медицинских услуг_files/main-tizer.gif">
+        	</div>
+	<div class="slider-descr">
+		<h2>Запись на приём к врачу</h2>
+		<p>
+			                Теперь вы можете не только записаться на прием в&nbsp;поликлинику, но&nbsp;и получить онлайн консультацию своего&nbsp;врача прямо из дома. Можно связаться с врачом по&nbsp;аудио или видеосвязи.
+															<a href="https://portal12.is-mis.ru/user/register">Зарегистрируйтесь</a> на сайте или 
+								<a href="https://portal12.is-mis.ru/#" onclick="$('.enter').trigger('click');return false;">авторизуйтесь</a> для возможности записаться. 		
+					</p>
+		            <a class="data slider-btn" onclick="return openEnterBoxModal()">Записаться</a>
+        	</div>
+</div><div class="top-slider slick-slide" data-slick-index="1" aria-hidden="true" style="width: 1080px;">
+  <div class="slider-img">
+    <img src="./Региональный портал медицинских услуг_files/vaccination_slide.png">
+  </div>
+  <div class="slider-descr">
+    <h2>Запись на вакцинацию от COVID-19</h2>
+    <p>
+      Защищайтесь от COVID-19 эффективно — сделайте себе и семье прививку.      <a class="data slider-btn " data-link="/service/record/vaccination" data-link-params="only_covid=1" onclick="
+                                        ">
+          Записаться
+      </a>
+  </p></div>
+</div><div class="top-slider slick-slide" data-slick-index="2" aria-hidden="true" style="width: 1080px;">
+	<div class="slider-img">
+		<img src="./Региональный портал медицинских услуг_files/slide5.png">
+	</div>
+	<div class="slider-descr">
+		<h2>Расписание работы врачей</h2>
+		<p>
+		Информация о расписании работы врачей медицинских организаций.
+		</p>
+		<a href="https://portal12.is-mis.ru/service/schedule" class="slider-btn">Открыть</a>
+	</div>
+</div><div class="top-slider slick-slide" data-slick-index="3" aria-hidden="true" style="width: 1080px;">
+	<div class="slider-img">
+		<img src="./Региональный портал медицинских услуг_files/slide3.png">
+	</div>
+	<div class="slider-descr">
+		<h2>Электронная медицинская карта</h2>
+    <p>Для просмотра своей электронной медицинской карты необходимо войти на сайт с помощью Портала госуслуг РФ.</p>
+							<a href="https://portal12.is-mis.ru/service/emk" class="slider-btn">Войти</a>
+			</div> 
+</div><div class="top-slider slick-slide" data-slick-index="4" aria-hidden="true" style="width: 1080px;">
+	<div class="slider-img">
+		<img src="./Региональный портал медицинских услуг_files/diary.png" alt="Дневник здоровья">
+	</div>
+	<div class="slider-descr">
+		<h2>Дневник здоровья</h2>
+		<p>
+            Ввод показателей давления и пульса. Просмотр истории измерений.
+			<br>
+							<a href="https://portal12.is-mis.ru/user/register">Зарегистрируйтесь</a> на сайте или
+				<a href="https://portal12.is-mis.ru/#" onclick="return openEnterBoxModal()">авторизуйтесь</a> для работы с дневником здоровья.
+					</p>
+
+					<a class="data slider-btn" href="https://portal12.is-mis.ru/#" onclick="return openEnterBoxModal()">Открыть</a>
+        	</div>
+</div><div class="top-slider slick-slide" data-slick-index="5" aria-hidden="true" style="width: 1080px;">
+	<div class="slider-img">
+		<img src="./Региональный портал медицинских услуг_files/slide2.png">
+	</div>
+	<div class="slider-descr">
+		<h2>Медицинские организации в&nbsp;регионе</h2>
+		<p>
+			Доступ к информации о медицинских организациях региона.
+	</p>
+		<a href="https://portal12.is-mis.ru/service/hospitals" class="slider-btn">Открыть</a>
+	</div>
+</div><div class="top-slider slick-slide" data-slick-index="6" aria-hidden="true" style="width: 1080px;">
+	<div class="slider-img">
+		<img src="./Региональный портал медицинских услуг_files/slide6.png">
+	</div>
+	<div class="slider-descr">
+		<h2>Поиск участка прикрепления</h2>
+		<p>
+			Поиск участка прикрепления по адресу и список поликлиник с участками.
+		</p>
+		<a href="https://portal12.is-mis.ru/service/regions" class="slider-btn">Найти</a>
+	</div>
+</div><div class="top-slider slick-slide slick-cloned" data-slick-index="7" id="" aria-hidden="true" style="width: 1080px;">
+	<div class="slider-img">
+        				    <img src="./Региональный портал медицинских услуг_files/main-tizer.gif">
+        	</div>
+	<div class="slider-descr">
+		<h2>Запись на приём к врачу</h2>
+		<p>
+			                Теперь вы можете не только записаться на прием в&nbsp;поликлинику, но&nbsp;и получить онлайн консультацию своего&nbsp;врача прямо из дома. Можно связаться с врачом по&nbsp;аудио или видеосвязи.
+															<a href="https://portal12.is-mis.ru/user/register">Зарегистрируйтесь</a> на сайте или 
+								<a href="https://portal12.is-mis.ru/#" onclick="$('.enter').trigger('click');return false;">авторизуйтесь</a> для возможности записаться. 		
+					</p>
+		            <a class="data slider-btn" onclick="return openEnterBoxModal()">Записаться</a>
+        	</div>
+</div></div></div>
+
+
+
+	<button type="button" data-role="none" class="slick-prev" aria-label="previous" style="">Previous</button><button type="button" data-role="none" class="slick-next" aria-label="next" style="">Next</button><ul class="slick-dots" style=""><li class="slick-active" aria-hidden="false"><button type="button" data-role="none">1</button></li><li aria-hidden="true"><button type="button" data-role="none">2</button></li><li aria-hidden="true"><button type="button" data-role="none">3</button></li><li aria-hidden="true"><button type="button" data-role="none">4</button></li><li aria-hidden="true"><button type="button" data-role="none">5</button></li><li aria-hidden="true"><button type="button" data-role="none">6</button></li><li aria-hidden="true"><button type="button" data-role="none">7</button></li></ul></div>
+</div>
+<div class="path mainpath">
+	<div class="wrapper">
+        <span>Медицинские услуги региона</span>
+    </div>
+</div>
+<div class="content">
+  <div class="content-body">
+	<div class="wrapper wrapper-body index">
+        <div class="tizers slick-initialized slick-slider">
+                                                <div aria-live="polite" class="slick-list draggable" tabindex="0"><div class="slick-track" style="opacity: 1; width: 4012px; transform: translate3d(-1180px, 0px, 0px);"><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="-5" id="" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/schedule'" data-link="/service/schedule">
+							                            <span class="rasp">
+                                                    </span>
+                            <h2>Расписание работы врачей</h2>
+                            <p>Информация о наличии врачей-специалистов в медицинских организациях, режиме их работы и расписании приемов</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="-4" id="" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/emk'" data-link="/service/emk">
+							                            <span class="emk">
+                            <span class="lock" title="Требуется авторизация на портале Госуслуг РФ"></span>                        </span>
+                            <h2>Медицинская карта</h2>
+                            <p>Просмотр Вашей Электронной Медицинской Карты</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="-3" id="" aria-hidden="true">
+                        <div class="data " onclick="openEnterBoxModal()" data-link="/service/diary">
+							                            <span class="diary">
+                            <span class="lock" title="Требуется авторизация"></span>                        </span>
+                            <h2>Дневник здоровья</h2>
+                            <p>Ввод показателей давления и пульса. Просмотр истории измерений</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="-2" id="" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/hospitals'" data-link="/service/hospitals">
+							                            <span class="medorg">
+                                                    </span>
+                            <h2>Медицинские организации</h2>
+                            <p>Список медицинских организаций и врачей</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/regions'" data-link="/service/regions">
+							                            <span class="uchastok">
+                                                    </span>
+                            <h2>Поиск участка прикрепления</h2>
+                            <p>Поиск медицинской организации, врачебного участка, и врача, обслуживающего указанный адрес</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-active" data-slick-index="0" aria-hidden="false">
+                        <div class="data " onclick="openEnterBoxModal()" data-link="/service/record">
+							                            <span class="kvrachu">
+                            <span class="lock" title="Требуется авторизация"></span>                        </span>
+                            <h2>Запись на приём к врачу</h2>
+                            <p>Запись на плановый прием к врачу по месту жительства. Требуется регистрация.<br>Государственная услуга.</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-active" data-slick-index="1" aria-hidden="false">
+                        <div class="data " onclick="" data-link="/service/record/vaccination">
+							                            <span class="record_vaccination">
+                                                    </span>
+                            <h2>Запись на вакцинацию</h2>
+                            <p>Предварительная запись на вакцинацию</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-active" data-slick-index="2" aria-hidden="false">
+                        <div class="data " onclick="location.href='/service/schedule'" data-link="/service/schedule">
+							                            <span class="rasp">
+                                                    </span>
+                            <h2>Расписание работы врачей</h2>
+                            <p>Информация о наличии врачей-специалистов в медицинских организациях, режиме их работы и расписании приемов</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-active" data-slick-index="3" aria-hidden="false">
+                        <div class="data " onclick="location.href='/service/emk'" data-link="/service/emk">
+							                            <span class="emk">
+                            <span class="lock" title="Требуется авторизация на портале Госуслуг РФ"></span>                        </span>
+                            <h2>Медицинская карта</h2>
+                            <p>Просмотр Вашей Электронной Медицинской Карты</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-active" data-slick-index="4" aria-hidden="false">
+                        <div class="data " onclick="openEnterBoxModal()" data-link="/service/diary">
+							                            <span class="diary">
+                            <span class="lock" title="Требуется авторизация"></span>                        </span>
+                            <h2>Дневник здоровья</h2>
+                            <p>Ввод показателей давления и пульса. Просмотр истории измерений</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide" data-slick-index="5" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/hospitals'" data-link="/service/hospitals">
+							                            <span class="medorg">
+                                                    </span>
+                            <h2>Медицинские организации</h2>
+                            <p>Список медицинских организаций и врачей</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide" data-slick-index="6" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/regions'" data-link="/service/regions">
+							                            <span class="uchastok">
+                                                    </span>
+                            <h2>Поиск участка прикрепления</h2>
+                            <p>Поиск медицинской организации, врачебного участка, и врача, обслуживающего указанный адрес</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="7" id="" aria-hidden="true">
+                        <div class="data " onclick="openEnterBoxModal()" data-link="/service/record">
+							                            <span class="kvrachu">
+                            <span class="lock" title="Требуется авторизация"></span>                        </span>
+                            <h2>Запись на приём к врачу</h2>
+                            <p>Запись на плановый прием к врачу по месту жительства. Требуется регистрация.<br>Государственная услуга.</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="8" id="" aria-hidden="true">
+                        <div class="data " onclick="" data-link="/service/record/vaccination">
+							                            <span class="record_vaccination">
+                                                    </span>
+                            <h2>Запись на вакцинацию</h2>
+                            <p>Предварительная запись на вакцинацию</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="9" id="" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/schedule'" data-link="/service/schedule">
+							                            <span class="rasp">
+                                                    </span>
+                            <h2>Расписание работы врачей</h2>
+                            <p>Информация о наличии врачей-специалистов в медицинских организациях, режиме их работы и расписании приемов</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="10" id="" aria-hidden="true">
+                        <div class="data " onclick="location.href='/service/emk'" data-link="/service/emk">
+							                            <span class="emk">
+                            <span class="lock" title="Требуется авторизация на портале Госуслуг РФ"></span>                        </span>
+                            <h2>Медицинская карта</h2>
+                            <p>Просмотр Вашей Электронной Медицинской Карты</p>
+                        </div>
+                    </div><div style="height: auto; width: 236px;" class="tizer n7 slick-slide slick-cloned" data-slick-index="11" id="" aria-hidden="true">
+                        <div class="data " onclick="openEnterBoxModal()" data-link="/service/diary">
+							                            <span class="diary">
+                            <span class="lock" title="Требуется авторизация"></span>                        </span>
+                            <h2>Дневник здоровья</h2>
+                            <p>Ввод показателей давления и пульса. Просмотр истории измерений</p>
+                        </div>
+                    </div></div></div>
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                    <button type="button" data-role="none" class="slick-prev" aria-label="previous" style="">Previous</button><button type="button" data-role="none" class="slick-next" aria-label="next" style="">Next</button></div>
+		<div class="tizers-mini">
+							<div style="height: auto;" class="tizer-mini n7">
+					<div class="data" onclick="openEnterBoxModal()">
+                        <span class="kvrachu">
+                            <span class="lock" title="Требуется авторизация"></span>                        </span>
+						<h2>Запись на приём к врачу</h2>
+						<p>Запись на плановый прием к врачу по месту жительства. Требуется регистрация.<br>Государственная услуга.</p>
+					</div>
+				</div>
+
+							<div style="height: auto;" class="tizer-mini n7">
+					<div class="data" onclick="location.href='/service/record/vaccination'">
+                        <span class="record_vaccination">
+                                                    </span>
+						<h2>Запись на вакцинацию</h2>
+						<p>Предварительная запись на вакцинацию</p>
+					</div>
+				</div>
+
+							<div style="height: auto;" class="tizer-mini n7">
+					<div class="data" onclick="location.href='/service/schedule'">
+                        <span class="rasp">
+                                                    </span>
+						<h2>Расписание работы врачей</h2>
+						<p>Информация о наличии врачей-специалистов в медицинских организациях, режиме их работы и расписании приемов</p>
+					</div>
+				</div>
+
+							<div style="height: auto;" class="tizer-mini n7">
+					<div class="data" onclick="location.href='/service/emk'">
+                        <span class="emk">
+                            <span class="lock" title="Требуется авторизация на портале Госуслуг РФ"></span>                        </span>
+						<h2>Медицинская карта</h2>
+						<p>Просмотр Вашей Электронной Медицинской Карты</p>
+					</div>
+				</div>
+
+							<div style="height: auto;" class="tizer-mini n7">
+					<div class="data" onclick="openEnterBoxModal()">
+                        <span class="diary">
+                            <span class="lock" title="Требуется авторизация"></span>                        </span>
+						<h2>Дневник здоровья</h2>
+						<p>Ввод показателей давления и пульса. Просмотр истории измерений</p>
+					</div>
+				</div>
+
+							<div style="height: auto;" class="tizer-mini n7">
+					<div class="data" onclick="location.href='/service/hospitals'">
+                        <span class="medorg">
+                                                    </span>
+						<h2>Медицинские организации</h2>
+						<p>Список медицинских организаций и врачей</p>
+					</div>
+				</div>
+
+							<div style="height: auto;" class="tizer-mini n7">
+					<div class="data" onclick="location.href='/service/regions'">
+                        <span class="uchastok">
+                                                    </span>
+						<h2>Поиск участка прикрепления</h2>
+						<p>Поиск медицинской организации, врачебного участка, и врача, обслуживающего указанный адрес</p>
+					</div>
+				</div>
+
+					</div>
+                <div class="max-banner">
+            <div class="max-site-install-banner">
+                <div class="max-site-install-banner-content">
+                    <h2 class="max-site-install-banner-title">Записывайтесь на прием к врачу<br>в нашем чат-боте</h2>
+                    <p class="max-site-install-banner-description">Быстро, без звонков, 24/7 в мессенджере <b>MAX</b></p>
+                </div>
+                <div class="max-site-install-banner-img">
+                    <img src="./Региональный портал медицинских услуг_files/max-site.png" alt="Бот Max">
+                    <a class="max-site-install-banner-button" target="_blank" rel="noreferrer" href="https://max.ru/doctor_rme_bot">Перейти в чат-бот</a>
+                </div>
+                <img class="max-site-install-banner-qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEoAAABKCAIAAACTslUmAAAABnRSTlMA/wD/AP83WBt9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB7klEQVR4nO2ay3LDIAxF607//5fTBVkoo1zlSNjTGnRWHV4B30pIwPF4PL7W5fuvJ3Atvbw708u7M728O/OjKo7jgEP4nXP05eWqdmYOg13VG8Qxjf+6SoFRosrtb6lyPgfL3uoN/BeqfVFbbrW6Yg6DVi+Pt6LYJv3fZ9Hq5bEKqL3OaxXvijVaPfZFuf3E/jNWO8ve6s34sVgZtY+pSKjG4uodV5yUKZWIZbbnTPAh34vjjEG2RMUx9ldUryyLq/fB9oid8Cw79pm2L4lUVYllV/W8Daha20b1ItkasbFs1tfqvUMpE+9sWRtTI8T/WZZW7xViY2fZczw+0XBX9Z7VoVVwBRTZnTDLruoR3eZtSU6r9F/g2VW9l0ZJf2V7+ZbkVIZEPMQmF1cP3e+pe5z4+5F7Ij8mGY2zuHpp2yNt5m9Vub11vve2onQmqdpkz8iIr+6YU3vO+JSfZ2u1cfqOAVG0PcW8H66dzSl2VS89UDJ6JOfTvpbkh5Zd1avZG7cKnk/U4pXB4uqd9qZsJs7g9+k82xzsrd6AeCqVE6o25555Klo9BnnLovxh7ZUEiWBaPQa53/Ge1vbltspp9fK5ljpNq2Uhag7tOc97U5Y9vebn1uQ1jGJx9S55U/Z/WFy9Xt6d6eXdmV7enfkFn6IxkXfj2hQAAAAASUVORK5CYII=">
+            </div>
+        </div>
+        		
+        <div class="banner-net" data-banner="banner">
+                    </div>
+
+					<div class="description">
+				 <div class="alert notice-bottom">
+					 При возникновении неотложных состояний, требующих срочного оказания медицинской помощи, обратитесь в Скорую медицинскую помощь по номеру 03 или 112 со стационарного телефона, 112 с сотового телефона.                </div>
+			 </div>
+            </div>
+    <div style="clear:both;"></div>
+  </div>
+</div>
+<script type="text/javascript" src="./Региональный портал медицинских услуг_files/slick.min.js.Без названия"></script>
+<script>
+    $( document ).ready(function() {
+		function changeSlides (){
+			if ($(window).width() <= 768)
+			{
+				return 3
+			} else if (7 > 5) {
+				return 5
+			} else {
+				return 7			}
+		}
+        $('.tizers').slick({
+            infinite: true,
+            slidesToShow: changeSlides(),
+            slidesToScroll: 1
+        });
+        
+        $('.top-slideshow .wrapper').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 7000,
+            useCSS: false,
+            easing: 'easeInOutExpo',
+            speed: 1000
+        });
+
+		$('.newsblock').slick({
+			infinite: true,
+			slidesToShow: $(window).width() <= 640? 1: 2,
+			slidesToScroll: 1
+		});
+    });
+</script>
+	
+    
+    
+	
+    
+    <div class="popup infoWindow">
+        <span class="close"></span>
+        <h2></h2>
+        <p class="contextAlert"></p>
+        <div style="float:right; margin-top: 20px;"><a href="https://portal12.is-mis.ru/#" class="button grey" onclick="jQuery('.popup.infoWindow').dialog( 'close' ); return false;">Закрыть</a></div>
+    </div>
+    <div class="push"></div>
+
+	<div class="popup enterBox" id="enterBoxModal">
+		<span class="close"></span>
+		
+<form class="login-form  email-form" method="post">
+	<p><input type="text" class="username-input" placeholder="Логин или Электронная почта" name="username" value="">
+		</p>
+	<p class="password-field"><input type="password" class="password-input" placeholder="Пароль" name="password">
+		</p>
+	<p><input type="checkbox" id="forgot" name="remember"><label for="forgot">Запомнить меня</label><a href="https://portal12.is-mis.ru/#" class="forgot_pass_link">Забыли пароль?</a></p>
+	<p><input type="submit" value="Вход" name="login-submit"></p>
+		<p><a href="https://portal12.is-mis.ru/esia/auth">Войти через портал Госуслуг РФ (ЕСИА)</a> <span class="info" title="Авторизация через портал Госуслуг РФ открывает доступ ко всем услугам Медицинского портала, в том числе к Медицинской карте."></span></p>
+	    </form>
+    </div>
+</div>
+<div class="clearFix"></div>
+<div class="footer">
+    <div class="pants">
+        <div class="wrapper">
+            <div class="applet">
+                                <a target="_blank" rel="noreferrer" href="https://apps.rustore.ru/app/ru.swan.kvrachu"><img src="./Региональный портал медицинских услуг_files/RuStore.png" alt="RuStore"></a>
+                <a target="_blank" rel="noreferrer" href="https://play.google.com/store/apps/details?id=ru.swan.kvrachu&amp;utm_source=global_co&amp;utm_medium=prtnr&amp;utm_content=Mar2515&amp;utm_campaign=PartBadge&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img src="./Региональный портал медицинских услуг_files/button_android.png" alt="Мобильное приложения для Андроид"></a>
+                            </div>
+            <div><ul>
+                <li><a href="https://portal12.is-mis.ru/about">О портале</a></li>
+                <li><a href="https://portal12.is-mis.ru/news">Новости</a></li>
+                <li><a href="https://portal12.is-mis.ru/help">Помощь</a></li>
+                                <li><a href="https://portal12.is-mis.ru/about/feedback">Обратная связь</a></li>
+                            </ul></div>
+			        </div>
+    </div>
+    <div class="copyright">
+        <div class="wrapper">
+                        			        </div>
+    </div>
+</div>
+<!-- индикация загрузки -->
+<div style="display:none;" id="load_indicator">
+    <div style="width:100%; height:100%; opacity:0.5; background-color:gray; border: 1px solid black; position:fixed; left:0%; top:0%; z-index:9998;">
+        &nbsp;
+    </div>
+    <div style="margin: -50px 0 0 -50px; position:fixed; left:50%; top:50%; z-index:9999;">
+        <div class="windows8">
+            <div class="wBall" id="wBall_1">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_2">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_3">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_4">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_5">
+                <div class="wInnerBall"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div></body></html>

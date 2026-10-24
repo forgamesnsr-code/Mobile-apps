@@ -1,0 +1,830 @@
+function ShowLoadIndicator() {
+	var indicator = document.getElementById("load_indicator");
+	if(indicator) indicator.style.display = "block";
+}
+function HideLoadIndicator() {
+	document.getElementById("load_indicator").style.display = "none";
+}
+
+
+/**
+ * Подсчет контрольной суммы номера полиса нового образца
+ * @param ednum string Номер полиса
+ * @returns {boolean}
+ */
+function checkEdNumFedSignature(ednum){
+	if(!/^\d{16}$/.test(ednum))
+		return false;
+	var key = parseInt(ednum.charAt(ednum.length - 1));
+	var str_chet = '';
+	var str_nechet = '';
+	var i;
+	for(i = 14; i >= 0; i--){
+		if(i % 2 === 0)
+			str_nechet = String(str_nechet).concat(String(ednum.charAt(i)));
+		else
+			str_chet = String(str_chet).concat(String(ednum.charAt(i)));
+	}
+	var str_number = String(str_chet).concat(String(parseInt(str_nechet) * 2));
+	var summ = 0;
+	for(i = 0; i < str_number.length; i++)
+		summ += parseInt(str_number.charAt(i));
+	var number_key = (summ % 10 === 0) ? 0 : (10 - summ % 10);
+	return (number_key === key);
+}
+
+/**
+ * Открытие модального окна для входа
+ */
+function openEnterBoxModal(el){
+	var modal = jQuery('#enterBoxModal');// модальная форма с авторизацией должна быть одна
+	if(!modal.length){// но пока их может быть несколько
+		console.log('--- #enterBoxModal не найден, нужно добавить. Поиск .enterBoxModal');
+		modal = jQuery('.enterBoxModal');
+		if(!modal.length){
+			console.log('--- .enterBoxModal не найден, нужно добавить #enterBoxModal. Поиск .enterBox');
+			modal = jQuery('.enterBox');
+			if(!modal.length){
+				console.log('--- .enterBox не найден!');
+				return false;
+			}
+		}
+	}
+	modal.dialog({
+		dialogClass: 'Dialog Test',
+		minWidth: 315,
+		modal: true,
+		width : 200,
+		resizable: false
+	});
+	return false;// для обработчика onclick="return openEnterBoxModal()" у ссылок
+}
+
+function checkForm(el, username, password){
+	if((typeof password) === 'string' && password.length){
+		var loginPassw = jQuery.trim(jQuery(el).find('[name="'+password+'"]').val());
+		if(loginPassw.length < 4){
+			return false;
+		}
+	}
+
+	if((typeof username) === 'string' && username.length){
+		var loginEmail = jQuery.trim(jQuery(el).find('[name="'+username+'"]').val());
+		if(loginEmail.length < 1){
+			return false;
+		}
+	}
+	return true;
+}
+
+/**
+ * Возвращает куки с указанным name или undefined, если ничего не найдено
+ * 
+ * @param string name 
+ * @returns undefined|string
+ */
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function setCookie(name, value, options = {}) {
+    options = {
+      path: '/',
+      ...options
+    };
+
+    if (options.expires instanceof Date) {
+      options.expires = options.expires.toUTCString();
+    }
+  
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+  
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+}
+
+/**
+ * Скачать документ
+ * @param {number} patientId - Ид пациента.
+ * @param {number} docId - Ид документа.
+ * @returns void
+ */
+function downloadDocument(personId, emdVersionId, medicalDocumentTypeCode) {
+    const errorMsg = 'При получении документа возникла ошибка. Попробуйте запросить документ позже. Если ошибка повторится, обратитесь за документом в медицинскую организацию.';
+
+    const queryParams = $.param({
+        patient_id: String(personId),
+        emdVersionId: String(emdVersionId),
+        medicalDocumentTypeCode: medicalDocumentTypeCode,
+    });
+
+    $.ajax({
+        url: `/service/emk/get_document_with_signature?${queryParams}`,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data, textStatus, xhr) {
+            if (!data.content || !data.mimeType || !data.contentType) {
+                $.alert(errorMsg);
+
+                return;
+            }
+
+            const blob = convertBase64ToBlob(data.content, data.mimeType);
+            const fileName = `${docId}.${data.contentType}`;
+            loadFileFromBlob(blob, fileName);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            $.alert(errorMsg);
+        },
+	});
+}
+
+
+function convertBase64ToBlob(base64Data, type) {
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: type });
+
+    return blob;
+}
+
+function loadFileFromBlob(blob, fileName) {
+    const fileURL = window.URL.createObjectURL(blob);
+    const tempLink = document.createElement('a');
+    tempLink.href = fileURL;
+    tempLink.download = fileName; // Название файла
+    tempLink.style.display = 'none';
+    document.body.appendChild(tempLink);
+    tempLink.click();
+
+    setTimeout(() => {
+        document.body.removeChild(tempLink);
+        window.URL.revokeObjectURL(fileURL);
+    }, 100);
+}
+
+$( document ).ready(function() {
+    
+    function showModal(text) {
+        $(".popup.notifyEdit").html('<span class="close"></span><div>' + text + '</div>');
+        $(".popup.notifyEdit").dialog({
+            dialogClass: "Dialog",/*Dialog добавляем всем попапам. Второй класс для специфики.*/
+            minWidth: $(window).width() <= 640 ? 299 : 570,
+            modal: true
+        });
+    }
+    
+	var count = 0;		
+	 $( ".miss, .busy, .free, .liveLine" ).tooltip({
+		tooltipClass: "tooltip-white-style",
+		track: true,
+		position: { my: "center top+25", at: "right center" },
+		content: function() {
+			return $(this).attr('title');
+		}
+	});
+	$( "body .info" ).tooltip({
+		tooltipClass: "tooltip-white-style",
+		position: { my: "center-5 top+25", at: "right center" },
+		content: function() {
+			return $(this).attr('title');
+		}
+	});
+	
+	$( ".biginfo" ).tooltip({
+		tooltipClass: "tooltip-white-style toptooltip electronic-queue-tooltip",
+		position: { my: "center bottom-5", at: "center top-10", collision:"none"},
+		content: function() {
+			return $(this).attr('title');
+		}
+	});
+
+	$( "body .question" ).tooltip({
+		tooltipClass: "tooltip-white-style toptooltip",
+		position: { my: "center bottom-5", at: "center top-10", collision:"none"},
+		content: function() {
+			return $(this).attr('title');
+		}
+	});
+	
+	$( "body .hiddentooltip" ).tooltip({
+		tooltipClass: "tooltip-white-style",
+		position: { my: "center-35 top+25", at: "right center" },
+		content: function() {
+			return $(this).attr('title');
+		}
+	});
+	$( ".dialog" ).dialog({
+		autoOpen: false,
+		modal: true
+	});
+	$( "a.trololo" ).on('click', function() {
+		$(".popup.trololo").dialog({
+			dialogClass: "Dialog activate",
+			minWidth: $(window).width() <=768 ? 299 : 445
+		})
+	})
+	$( "a.regNumber" ).on('click', function() {
+		$(".popup.regNumber").dialog({
+			dialogClass: "Dialog regnumber-win",
+			minWidth: $(window).width() <= 768 ? 299 : 445
+		})
+	})
+	$( "a.regAgree" ).on('click', function() {
+		$(".popup.regAgree").dialog({
+			dialogClass: "Dialog",
+			minWidth: $(window).width() <= 768 ? 299 : 570
+		})
+	})
+	$( "a.regNumber2" ).on('click', function() {
+		$(".popup.regNumber2").dialog({
+			dialogClass: "Dialog regnumber2-win",
+			minWidth: $(window).width() <= 768 ? 299 : 445
+		})
+	})
+	$( "a.typepolis" ).on('click', function() {
+		$(".popup.typepoliswin").dialog({
+			dialogClass: "Dialog typepolis",
+			minWidth: $(window).width() <= 768 ? 299 : 600,
+			height: document.body.clientHeight
+		})
+	});
+	$('.side-mobile-menu').on('click', function (event) {
+		$(this).addClass('hidden');
+		$(document.body).removeClass('body-no-scroll');
+	});
+	$('.burger-menu').on('click', function () {
+		$('.side-mobile-menu').removeClass('hidden');
+		$(document.body).addClass('body-no-scroll');
+	})
+	// Демобокс
+	$(" .cap .person .demo").on('mouseenter', function(event) {
+		var target = $(event.target);
+		$(".demoBox").dialog({
+			dialogClass: "Dialog-tooltip Dialog Test",
+			width: 'auto',
+			minHeight: 'auto',
+			position: $(window).width() <=1080 ? { my:"center+100 top+20", at:" top+20", of: target}  : {my: "right+100 top+20", at: " top+20",of: target},
+			resizable: false
+		});
+	}).on('mouseleave',
+	function() {
+		setTimeout(function() {
+			if(!$(".demoBox").is(':hover')) $(".demoBox").dialog('close');
+
+		}, 300)
+	});
+	$(".demoBox").on('mouseenter', 
+		function(){}).on('mouseleave',
+		function() {$(".demoBox").dialog('close');}
+	);
+
+	// Пушбокс
+	$(" .cap .person .push-notice").on('mouseenter', function(event) {
+			var target = $(event.target);
+			$(".pushBox").dialog({
+				dialogClass: "Dialog-tooltip Dialog Test",
+				width: 'auto',
+				minHeight: 'auto',
+				position: $(window).width() <=1080 ? { my:"center+100 top+20", at:" top+20", of: target}  : {my: "right+100 top+20", at: " top+20",of: target},
+				resizable: false
+			});
+		}).on('mouseleave',
+		function() {
+			setTimeout(function() {
+				if(!$(".pushBox").is(':hover')) $(".pushBox").dialog('close');
+
+			}, 300)
+		});
+	$(".pushBox").on('mouseenter', 
+		function(){}).on('mouseleave',
+		function() {$(".pushBox").dialog('close');}
+	);
+
+	// Статус бирки
+	$(" .status .info-quest-icon").on('mouseenter', function(event) {
+			var target = $(event.target);
+			$(".info-quest-push").dialog({
+				dialogClass: "Dialog-tooltip Dialog Test",
+				width: 'auto',
+				minHeight: 'auto',
+				position: $(window).width() <=1080 ? { my:"center+100 top+10", at:" top+10", of: target}  : {my: "right+100 top+10", at: " top+10",of: target},
+				resizable: false
+			});
+		}).on('mouseleave',
+		function() {
+			setTimeout(function() {
+				if(!$(".info-quest-push").is(':hover')) $(".info-quest-push").dialog('close');
+
+			}, 300)
+		});
+	$(".info-quest-push").on('mouseenter', 
+		function(){}).on('mouseleave',
+		function() {$(".info-quest-push").dialog('close');}
+	);
+
+	// Регбокс
+	$(".cap .person .register").on('mouseenter', function(event) {
+			var jqRegBox = $(".regBox");
+			if(!jqRegBox.length) return;
+			var target = $(event.target);
+			jqRegBox.dialog({
+				dialogClass: "Dialog-tooltip Dialog Test",
+				width: 'auto',
+				minHeight: 'auto',
+				position: $(window).width() <=1080 ? { my:"center-100 top+20", at:" top+20", of: target}  : {my: "right-260 top+20", at: " top+20",of: target},
+				resizable: false
+			});
+		}).on('mouseleave',
+		function() {
+			var jqRegBox = $(".regBox");
+			if(!jqRegBox.length) return;
+			setTimeout(function() {
+				if(!jqRegBox.is(':hover')) jqRegBox.dialog('close');
+			}, 300)
+	});
+	$('.side-mobile-menu .mobile-menu .person .register').on('click', function () {
+		if($(".regBox").length > 0){
+			$(".regBox").append('<span class="close"></span>')
+			$(".regBox").dialog({
+				dialogClass: "Dialog-tooltip Dialog Test",
+				width: 299,
+				minHeight: 'auto',
+				modal:  true,
+				position: { my:"top+10", at: "top", of: $(document.body)},
+				resizable: false,
+				beforeClose: function( event, ui ) {
+					console.log($(event.target).children('span.close').remove());
+				}
+			});
+			return false;
+		}
+
+	});
+	$(".regBox").on('mouseenter', 
+		function(){}).on('mouseleave',
+		function() {$(".regBox").dialog('close');}
+	);
+
+	$('a.enter[href="#"]').on('click', function(event){
+		event.preventDefault();
+		openEnterBoxModal();
+	});
+
+	$(document).on("click", "span.close", function() {
+		$(this).parents('.popup').dialog("close").dialog("destroy");// destroy вместо close, т.к. не используется open
+		return false;
+	});
+	
+	$("div.region").on('click', function(e) {
+		if ( $(".region ul").hasClass("closed") ) {
+			$(".region ul").addClass("opened");
+			$(".region ul").removeClass("closed");
+			e.stopPropagation();
+			return false; 
+		}
+	});
+	
+	
+	$(document).on('mouseup', function (e) {
+		var container = $(".region ul");
+		if ( !container.has(e.target).length ) {
+			$(".region ul").addClass("closed");
+			$(".region ul").removeClass("opened");
+		}
+
+		var container = $(".enterBox");
+
+		if ( container.dialog( "instance" ) && $(e.target).hasClass('ui-widget-overlay') ) {
+			container.dialog( "close" );
+		}
+		
+		var container = $(".moreMenu, .moreopts");
+		if ( !container.is(e.target) ) {
+			$(".moreMenu").removeClass("showed");
+		}
+		
+	});
+	
+	$("ul.opened").on('mouseenter', function(){}).on('mouseleave', function(){$(this).addClass('Trololo2')})
+
+	$("a.more").on('mouseenter', 
+		function(){
+			$(this).next(".moreMenu").show();
+			$(this).addClass("hovered");
+			$(this).next(".moreMenu").on('mouseenter', 
+				function(){
+					$(this).css("display", "block")
+					}).on('mouseleave',
+				function(){
+					$(this).css("display", "none")
+					$(this).prev().removeClass("hovered");
+					});
+		}).on('mouseleave',
+		function(){
+			$(this).next(".moreMenu").hide();
+		}
+	);
+	
+	$( ".lock" ).tooltip({
+		tooltipClass: "tooltip-black-style",
+		position: { my: "center-5 top+15", at: "right center" },
+		content: function() {
+			return $(this).attr('title');
+		}
+	});
+	
+	$(".timeLine ul.type li").tooltip({
+		tooltipClass: "tooltip-black-style",
+		position: { my: "center-13 top+15", at: "right center" },
+		content: function() {
+			return $(this).attr('title');
+		}
+	});
+	if ($(window).width() > '500') {
+	$( "span.more" ).tooltip({
+		tooltipClass: "tooltip-black-style thin-style",
+		position: { my: "center-17 top+15", at: "right center", collision: "none"},
+		content: "Подробнее",
+		items: "span",
+		show: { easing: "easeInExpo", duration: 800 }
+	});
+	}
+
+	if ($(window).width() < '500') {
+		$ ("span.desktop_title").hide();
+		$ ("span.desktop_body").hide();
+	}
+	if ($(window).width() > '500') {
+		$ ("span.mobile_title").hide();
+		$ ("span.mobile_body").hide();
+	}
+
+		$("span.more").on('click', function (e, x) {
+			 var nxt = $(this).next(".hidden");
+			if ($(window).width() > '500') {
+				var ttp = $("span.more");
+				if (nxt.is(":visible")) {
+					ttp.tooltip("option", "content", MORE);
+				} else {
+					ttp.tooltip("option", "content", COLLAPSE);
+				}
+				nxt.toggleClass('active');
+			}
+			if ($(window).width() < '500') {
+				var selector = $(this).parents(".news-block, .slideTizerNews").first();
+
+				selector.find("span.hidden").first().show();
+				selector.find("span.mobile_title").first().hide();
+				selector.find("span.more").first().hide();
+				selector.find("span.ellipsis").first().hide();
+				selector.find("span.hide").first().show();
+
+				$("span.hide").on('click', function (e, x) {
+					var selector = $(this).parents(".news-block, .slideTizerNews").first();
+					selector.find("span.hidden").first().hide();
+					selector.find("span.mobile_title").first().show();
+					selector.find("span.hide").first().hide();
+					selector.find("span.more").first().show();
+					selector.find("span.ellipsis").first().show();
+
+				});
+			}
+
+		});
+
+
+	$( "a.lpuAddressTTLink" ).tooltip({
+		tooltipClass: "tooltip-white-style lpuAddressTooltip",
+		position: { my: "center+5 top+15", at: "center center" },
+		content: function() {
+			return $(this).next("span.lpuAddressHidden").html();
+		},
+		items: "a",
+		show: {duration: 300 }
+	});
+
+	$('form input[type="password"] + label').on('click', function(e, x){
+		var inputfield = $(this).prev("input");
+		inputfield.toggleClass('opened');
+		if(inputfield.attr('type')=="password")
+		{inputfield.attr('type', 'text');}
+		else{inputfield.attr('type', 'password');}
+		return false;
+	});
+  window.addEventListener('beforeunload', function (e) {
+    setTimeout(function() {
+      ShowLoadIndicator();
+    }, 100)
+  });
+  $(window).on('load', function(){
+    HideLoadIndicator();
+  });
+  window.addEventListener('unload', function (e) {
+      HideLoadIndicator();
+  });
+
+	let tm = null;
+
+	$(document).ajaxSend(function( event, jqxhr, settings ) {
+		if (settings
+			&& (settings.withoutPreloader === undefined)
+			|| (settings.withoutPreloader !== undefined && !settings.withoutPreloader)
+		) {
+			ShowLoadIndicator();
+
+            if (settings.hasOwnProperty('checkLongTimeRequest') && settings.checkLongTimeRequest === false) {
+                return;
+            }
+
+			tm = setTimeout(function() {
+				// на всякий случай если зависнет лоад индикатор
+				HideLoadIndicator();
+				console.log('Слишком долгое выполнение AJAX запроса...')
+			}, 20000)
+		}
+	});
+
+	$( document ).ajaxStop(function() {
+
+		if (tm) {
+			clearTimeout(tm);
+			tm = null;
+		}
+
+	  	HideLoadIndicator();
+	});
+
+	$( document ).ajaxError(function(e, jqXHR, ajaxSettings, thrownError) {
+
+		if (tm) {
+			clearTimeout(tm);
+			tm = null;
+		}
+
+		HideLoadIndicator();
+		if (thrownError != 'abort') {
+			//$.alert(SERVER_ERROR);
+		}
+	});
+
+	$.extend({ alert: function (message, title) {
+		$(".popup.infoWindow>h2").html(title || ERROR);
+		$(".popup.infoWindow>h2").removeClass();
+		$(".popup.infoWindow>h2").addClass('alert');
+		$(".popup.infoWindow>p.contextAlert").html(message);
+		$(".popup.infoWindow").dialog({
+			dialogClass: "Dialog infoWindow",
+			minWidth: $(window).width() <=640? 299 : 445,
+			modal: true
+		})
+	}
+	});
+
+	$(".closeRedirectEsiaCovidPopup").on('click', function () {
+		$("#redirectEsiaCovid").dialog("close");
+	});
+
+	function renderRecoveryDialog(jqParent, data){
+
+		$(".recoveryPassMain").dialog({
+			dialogClass: "Dialog Test",
+			minWidth: $(window).width() <=640? 299 : 550,
+			modal: true,
+			resizable: false,
+			open: function( event, ui ) {
+				
+				if (data){
+					if (data.username) {
+						$('#request_password_mail').val(data.username);
+					}
+
+					if (data.errorMsg) {
+						$('#request_password_additional_error').html(data.errorMsg);
+					}
+				}
+			},
+			close:  function( event, ui ) {
+				$('#request_password_additional_error').html("");
+				$('#request_password_mail').val();
+			}
+		})
+
+		if ($(window).width() <= 640) {
+			let widthRecoveryPassMain = $(".recoveryPassMain").width();
+			let heightRecoveryPassMain = $(".recoveryPassMain").height();
+			$(".recoveryPassMain").height(heightRecoveryPassMain + 40);
+			$("span.close").width(widthRecoveryPassMain);
+		}
+	}
+
+	$(".forgot_pass_link").on('click',function(event, data) {
+
+		var jqParent = $(event.target).parents("form");
+		var jqDialog = jqParent.parents(".popup");
+
+		if (!data) {
+			data = {
+				username: jqParent.find('[name="username"]').val()
+			}
+		}
+
+		if ($("#request_password_div").length == 0) {
+
+			$(document.body).append('<div id="request_password_div"></div>');
+			$("#request_password_div").load( "/user/request_password_form", function() {
+
+				if ( jqDialog.hasClass('ui-dialog-content') ) {
+					jqDialog.dialog("destroy");
+				}
+
+				renderRecoveryDialog(jqParent, data);
+			});
+
+		} else {
+			jqDialog.dialog("destroy");
+			renderRecoveryDialog(jqParent, data);
+		}
+		return false;
+	});
+
+	$( ".clientLpuAttachmentsTab span" ).on('click', function(e, x){
+		var prt = $(this).parents(".docRecordingBlock ");
+		prt.toggleClass('expandedAttachments');
+	});
+
+	$.extend({ info: function (message, title, type) {
+		$(".popup.infoWindow>h2").html(title);
+		$(".popup.infoWindow>h2").removeClass();
+		if ( type ) {
+			$(".popup.infoWindow>h2").addClass(type);
+		}
+		$(".popup.infoWindow>p.contextAlert").html(message);
+		$(".popup.infoWindow").dialog({
+			dialogClass: "Dialog infoWindow",/*Dialog добавляем всем попапам. Второй класс для специфики.*/
+			minWidth: $(window).width() <=640? 299 : 445,
+			modal: true
+		})
+	}
+	});
+
+	$('.close-app-banner').on('click', function(){
+
+		$('.app-banner-main').remove();
+	});
+
+
+	$('.smart-hint .close').on('mousedown', function(){
+		$('.smart-hint').hide();
+	});
+
+	$('.enter-modal').on('click', function(event){
+		event.preventDefault();
+		openEnterBoxModal();
+	});
+
+	$(document).on('click', ".popup-close-button",function() {
+		$(this).closest('.ui-dialog-content').dialog( "close" );
+		return false;
+	});
+  
+    $('.btn-forward-medservices').on('mousedown', function (e) {
+        
+        const patient_id = e.target.dataset.patient_id
+        const UslugaComplexAttributeType_SysNick = e.target.dataset.uslugacomplexattributetype_sysnick
+        const UslugaComplexAttribute_Value = e.target.dataset.uslugacomplexattribute_value
+        const ageLimit = +e.target.dataset.age_limit
+        const age = +e.target.dataset.age
+        const link = e.target.href
+        // если это диспансеризация взрослого населения
+        if (UslugaComplexAttributeType_SysNick === 'DispClass' && [1,31].includes(+UslugaComplexAttribute_Value)) {
+            e.preventDefault()
+            $.ajax({
+                url: '/service/disp/allowRecord',
+                dataType: 'json',
+                data: {
+                    patient_id: patient_id,
+                    DispClass_Code: UslugaComplexAttribute_Value,
+                },
+                success: function (data) {
+                    if (!data || typeof data !== 'object') {
+                        $.alert('Ошибка записи на диспансеризацию!');
+                        return false;
+                    }
+                    if (data.error_msg) {
+                        $.alert(data.error_msg);
+                        return false;
+                    }
+                    if (!data.status) {
+                        showModal(data.message || 'Запись на диспансеризацию недоступна.');
+                        return false;
+                    }
+                    if (data.status) {
+                        window.location.href = link
+                    }
+                },
+                error: function (e) {
+                    console.error(e);
+                    $.alert('Ошибка записи на диспансеризацию!');
+                },
+                complete: function () {
+                  HideLoadIndicator();
+                }
+            })
+            return false;
+        }
+        if (ageLimit && ageLimit > age) {
+            e.preventDefault()
+            showModal('Запись на услугу невозможна,  пациент младше ' + ageLimit + ' лет');
+            return false;
+        }
+    });
+    
+    $('.need_choose_patient').on('click', function (e) {
+        e.preventDefault();
+        
+        const link = $(e.currentTarget).data("link");
+        const linkParams = $(e.currentTarget).data("link-params");
+        const loginWithPolis = $(e.currentTarget).data("login_with_polis");
+        const title = "Выберите человека";
+    
+        if(loginWithPolis){
+           return $.info('Сервис недоступен при авторизации по полису ОМС', 'Внимание!');
+        }
+        
+        function createTemplateListPersons(persons, link) {
+            let list = '';
+            persons.forEach(function (person) {
+				let href = link + '?patient_id=' + person.Person_id;
+
+				if (linkParams) {
+					href += '&' + linkParams;
+				}
+
+                list += '<li class="person-item"><a href="' + href +'">' + person.Person_FIO + '</a></li>';
+            })
+            return "<ul>" + list + "</ul>";
+        }
+    
+        if (link) {
+            $.ajax({
+                url: '/user/persons',
+                dataType: 'json',
+                success: function (data) {
+                    if (!data || !Array.isArray(data)) {
+                        $.info('Пользователи не найдены!');
+                        return false;
+                    }
+                    if (data.error_msg) {
+                        $.info(data.error_msg);
+                        return false;
+                    }
+
+										if (data.length === 1) {
+											window.location = link + '?patient_id=' + data[0].Person_id;
+											return;
+										}
+
+										$(".popup.infoWindow>h2").html(title);
+										$(".popup.infoWindow>h2").removeClass();
+										$(".popup.infoWindow>p.contextAlert").html(createTemplateListPersons(data, link));
+										$(".popup.infoWindow").dialog({
+											dialogClass: "Dialog infoWindow",
+											minWidth: 400,
+											modal: true
+										});
+                },
+                error: function (e) {
+                    console.error(e);
+                    $.alert('Ошибка получения списка пользователей!');
+                },
+                complete: function () {
+                  HideLoadIndicator();
+                }
+            })
+            return false;
+        }
+    })
+
+    $('.ordercert-action .btn-ordercert-download').on('click', function(e) {
+        e.preventDefault();
+        const $button = $(this);
+        handleSignedDocumentDownload($button);
+    });
+});
