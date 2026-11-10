@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12263f">
+<title>ГеоМастер — калькулятор фигур</title>
+<link rel="icon" href="images/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <img src="images/logo.svg" class="logo" alt="Логотип ГеоМастер" width="46" height="46">
+  <div><h1>ГеоМастер</h1><p>Периметр, площадь и объём фигур</p></div>
+</header>
+<main>
+  <div class="seg" role="tablist" aria-label="Тип фигур">
+    <button type="button" role="tab" data-dim="2" aria-selected="true">Плоские</button>
+    <button type="button" role="tab" data-dim="3" aria-selected="false">Объёмные</button>
+  </div>
+  <div id="shapes" class="shapes" role="list"></div>
+
+  <section class="card">
+    <h2 id="title"></h2>
+    <div class="paper"><img id="pic" alt="" width="300" height="190"></div>
+    <div class="row">
+      <label for="unit">Единицы длины</label>
+      <select id="unit">
+        <option value="мм">миллиметры (мм)</option>
+        <option value="см" selected>сантиметры (см)</option>
+        <option value="м">метры (м)</option>
+      </select>
+    </div>
+    <form id="form" novalidate>
+      <div id="fields"></div>
+      <div class="btns">
+        <button type="submit" class="primary">Рассчитать</button>
+        <button type="reset" class="ghost">Сбросить</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="result" class="card result" hidden aria-live="polite"></section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
